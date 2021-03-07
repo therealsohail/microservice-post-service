@@ -4,13 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server"
   },
   "author": "sohail",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
     "express": "^4.17.1"
   }
 }
