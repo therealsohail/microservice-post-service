@@ -29,6 +29,7 @@ app.post("/posts/:id/comments", async (req, res) => {
   commentsArray.push({
     id: commentId,
     content: req.body.content,
+    status: "pending",
   });
   commentsByPostId[id] = commentsArray;
   await axios.post("http://localhost:8005/events", {
@@ -36,6 +37,7 @@ app.post("/posts/:id/comments", async (req, res) => {
     id: commentId,
     content: req.body.content,
     postId: id,
+    status: "pending  ",
   });
   res.status(200).json(commentsArray);
 });
