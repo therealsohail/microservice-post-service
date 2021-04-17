@@ -9,15 +9,19 @@ app.use(express.json());
 
 let posts = {};
 app.post("/events", async (req, res) => {
-  let event = req.body;
+  try {
+    let event = req.body;
+    console.log("here");
+    await axios.post("http://post-service:8000/events", event);
+    await axios.post("http://comment-service:8001/events", event);
+    await axios.post("http://query-service:8002/events", event);
 
-  await axios.post("http://localhost:8000/events", event);
-  await axios.post("http://localhost:8001/events", event);
-  await axios.post("http://localhost:8002/events", event);
-
-  res.send({
-    message: "requests sent",
-  });
+    res.send({
+      message: "requests sent",
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.listen(PORT, console.log(`Event bus running on ${PORT}`));

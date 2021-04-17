@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-service-nodeport
+spec:
+  selector:
+    app: post
+  type: NodePort
+  ports:
+    - name: post
+      protocol: TCP
+      port: 8000
+      targetPort: 8000

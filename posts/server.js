@@ -15,20 +15,25 @@ app.get("/posts", (req, res) => {
 });
 
 //add a post
-app.post("/post", async (req, res) => {
-  let id = randomBytes(4).toString("hex");
-  posts[id] = {
-    id: id,
-    title: req.body.title,
-  };
-  console.log(posts[id]);
-  await axios.post("http://localhost:8005/events", {
-    type: "post_created",
-    id,
-    title: req.body.title,
-  });
-  res.status(200).send(posts[id]);
+app.post("/posts", async (req, res) => {
+  try {
+    let id = randomBytes(4).toString("hex");
+    posts[id] = {
+      id: id,
+      title: req.body.title,
+    };
+    console.log(posts[id]);
+    await axios.post("http://eventbus-service:8005/events", {
+      type: "post_created",
+      id,
+      title: req.body.title,
+    });
+    res.status(200).send(posts[id]);
+  } catch (error) {
+    console.log(error);
+  }
 });
+
 app.post("/events", (req, res) => {
   console.log("Event received: " + req.body);
   res.send({});

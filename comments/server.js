@@ -32,7 +32,7 @@ app.post("/posts/:id/comments", async (req, res) => {
     status: "pending",
   });
   commentsByPostId[id] = commentsArray;
-  await axios.post("http://localhost:8005/events", {
+  await axios.post("http://eventbus-service:8005/events", {
     type: "comment_created",
     id: commentId,
     content: req.body.content,

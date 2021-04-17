@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comment
+  template:
+    metadata:
+      labels:
+        app: comment
+    spec:
+      containers:
+        - name: comment-srv
+          image: therealsohail/comment-srv:latest
+          # imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comment-service
+spec:
+  selector:
+    app: comment
+  type: ClusterIP
+  ports:
+    - name: comment
+      protocol: TCP
+      port: 8001
+      targetPort: 8001
